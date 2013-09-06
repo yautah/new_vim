@@ -1,9 +1,7 @@
 "==========================================
-" Author:  wklken
-" Version: 6
-" Email: wklken@yeah.net
-" BlogPost: http://wklken.me
-" ReadMe: README.md
+" Author:  Yang Quan
+" Version: 1
+" Email: feza@163.net
 " Last_modify: 2013-08-04
 " Sections:
 "     ->General 基础设置
@@ -15,14 +13,12 @@
 "     ->colortheme 主题,及一些展示上颜色的修改
 "==========================================
 
-execute pathogen#infect()
-
 
 "==========================================
 " General 基础设置
 "==========================================
 
-set guifont=Monaco:h10          " 字体 && 字号
+"set guifont=Monaco:h10          " 字体 && 字号
 
 " history存储长度。
 set history=2000
@@ -43,6 +39,10 @@ set shortmess=atI       " 启动的时候不显示那个援助索马里儿童的提示
 
 " 备份,到另一个位置. 防止误删, 目前是取消备份
 "set backup
+"set backupext=.bak
+
+
+
 "set backupext=.bak
 "set backupdir=~/bak/vimbk/
 
@@ -152,8 +152,8 @@ nnoremap <C-n> :call NumberToggle()<cr>
 set undolevels=1000         " How many undos
 set undoreload=10000        " number of lines to save for undo
 if v:version >= 730
-    set undofile                " keep a persistent backup file
-    set undodir=~/bak/vimundo/
+  set undofile                " keep a persistent backup file
+  set undodir=~/bak/vimundo/
 endif
 
 set wildignore=*.swp,*.bak,*.pyc,*.class
@@ -209,12 +209,12 @@ autocmd! bufwritepost .vimrc source % " vimrc文件修改之后自动加载。 linux。
 "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 "set completeopt+=longest
 set completeopt=longest,menu
- 
+
 "离开插入模式后自动关闭预览窗口
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 "回车即选中当前项
 inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
- 
+
 "上下左右键的行为 会显示其他信息
 inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
@@ -301,16 +301,15 @@ nnoremap <C-y> 2<C-y>
 nnoremap <F2> :set nonumber! number?<CR>
 nnoremap <F3> :set list! list?<CR>
 nnoremap <F4> :set wrap! wrap?<CR>
-              "set paste
+"set paste
 set pastetoggle=<F5>            " when in insert mode, press <F2> to go to
-                                "    paste mode, where you can paste mass data
-                                "    that won't be autoindented
+"    paste mode, where you can paste mass data
+"    that won't be autoindented
 
 " disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
 
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
-
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
@@ -399,9 +398,12 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 
 "################### 插件管理 ###################"
+filetype off " required! turn off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
 "使用Vundle来管理Vundle
-"Bundle 'gmarik/vundle'
+Bundle 'gmarik/vundle'
 " vim plugin bundle control, command model
 " :BundleInstall     install
 " :BundleInstall!    update
@@ -411,7 +413,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 "nerdtree树状文件管理
 " ------------ nerdtree
-"Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdtree'
 map <leader>n :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
@@ -421,7 +423,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 "buffer管理
 " ------------ minibufferexpl
-"Bundle 'fholgado/minibufexpl.vim'
+Bundle 'fholgado/minibufexpl.vim'
 let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
@@ -439,13 +441,13 @@ noremap <leader>bd :MBEbd<CR>
 
 "tag列表和taglist维度不同
 " ------------ tagbar
-"Bundle 'majutsushi/tagbar'
+Bundle 'majutsushi/tagbar'
 nmap <F9> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 
 "tag列表
 " ------------ taglist (need ctags)
-"Bundle 'vim-scripts/taglist.vim'
+Bundle 'vim-scripts/taglist.vim'
 set tags=tags;/
 let Tlist_Ctags_Cmd="ctags"
 nnoremap <silent> <F8> :TlistToggle<CR>
@@ -475,15 +477,15 @@ let Tlist_WinWidth = 25
 
 "文件搜索
 " ------------ ctrlp
-"Bundle 'kien/ctrlp.vim'
+Bundle 'kien/ctrlp.vim'
 let g:ctrlp_map = '<leader>p'
 let g:ctrlp_cmd = 'CtrlP'
 map <leader>f :CtrlPMRU<CR>
 "set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
-    \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
-    \ }
+      \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+      \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
+      \ }
 "\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
 let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_bottom=1
@@ -495,39 +497,73 @@ let g:ctrlp_follow_symlinks=1
 "################### 显示加强 ###################"
 "
 "括号显示增强
-"Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'kien/rainbow_parentheses.vim'
 let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
+      \ ['brown',       'RoyalBlue3'],
+      \ ['Darkblue',    'SeaGreen3'],
+      \ ['darkgray',    'DarkOrchid3'],
+      \ ['darkgreen',   'firebrick3'],
+      \ ['darkcyan',    'RoyalBlue3'],
+      \ ['darkred',     'SeaGreen3'],
+      \ ['darkmagenta', 'DarkOrchid3'],
+      \ ['brown',       'firebrick3'],
+      \ ['gray',        'RoyalBlue3'],
+      \ ['black',       'SeaGreen3'],
+      \ ['darkmagenta', 'DarkOrchid3'],
+      \ ['Darkblue',    'firebrick3'],
+      \ ['darkgreen',   'RoyalBlue3'],
+      \ ['darkcyan',    'SeaGreen3'],
+      \ ['darkred',     'DarkOrchid3'],
+      \ ['red',         'firebrick3'],
+      \ ]
 let g:rbpt_max = 40
 let g:rbpt_loadcmd_toggle = 0
 
 "主题 solarized
-"Bundle 'altercation/vim-colors-solarized'
-"let g:solarized_termcolors=256
+Bundle 'altercation/vim-colors-solarized'
+let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
 
 "主题 molokai
 "Bundle 'tomasr/molokai'
+
+"主题 railscasts
+Bundle 'vim-scripts/railscasts'
 "
 
+"################### 快速移动 ###################"
+
+"更高效的移动 ,, + w/fx
+Bundle 'Lokaltog/vim-easymotion'
+
+Bundle 'vim-scripts/matchit.zip'
+"
+
+"################### 补全及快速编辑 ###################"
+" 快速插入代码片段
+"Bundle 'vim-scripts/UltiSnips'
+Bundle 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+"定义存放代码片段的文件夹 .vim/snippets下，使用自定义和默认的，将会的到全局，有冲突的会提示
+"let g:UltiSnipsSnippetDirectories=["snippets", "bundle/UltiSnips/UltiSnips"]
+
+"快速 加减注释
+Bundle 'scrooloose/nerdcommenter'
+" 快速加入修改环绕字符
+Bundle 'tpope/vim-surround'
+"以“=,:'等自动对齐
+Bundle 'godlygeek/tabular'
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
+"
+" end turn on
+filetype plugin indent on
+"
 "========================== config for plugins end ======================================
 
 "==========================================
@@ -539,26 +575,31 @@ syntax on
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guifont=Monaco:h10
-    set guioptions-=T
-    set guioptions+=e
-    set guioptions-=r
-    set guioptions-=L
-    set guitablabel=%M\ %t
-    set showtabline=1
-    set linespace=2
-    set noimd
-    set t_Co=256
+  au GUIEnter * simalt ~x   "win下打开自动全屏
+  set guifont=Monaco:h12
+  "set guifont=Droid\ Sans\ Mono:h12
+  "set guifont=Inconsolata:h14
+  "set guifont=YaHei\ Consolas\ Hybrid:h16
+  set guioptions-=T
+  set guioptions+=e
+  set guioptions-=r
+  set guioptions-=L
+  set guitablabel=%M\ %t
+  set showtabline=1
+  set linespace=2
+  set noimd
+  set t_Co=256
 endif
 
 
 " 修改主题和颜色展示
 colorscheme solarized
-set background=dark
+"set background=dark
 set t_Co=256
 
 "colorscheme molokai
 "colorscheme desert
+"colorscheme railscasts
 
 "设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr
