@@ -15,14 +15,14 @@
 "     ->colortheme 主题,及一些展示上颜色的修改
 "==========================================
 
-
+execute pathogen#infect()
 
 
 "==========================================
 " General 基础设置
 "==========================================
 
-"set guifont=Monaco:h20          " 字体 && 字号
+set guifont=Monaco:h10          " 字体 && 字号
 
 " history存储长度。
 set history=2000
@@ -116,9 +116,9 @@ set smartindent
 set autoindent    " always set autoindenting on
 " never add copyindent, case error   " copy the previous indentation on autoindenting
 
-set tabstop=4                " 设置Tab键的宽度        [等同的空格个数]
-set shiftwidth=4  " number of spaces to use for autoindenting
-set softtabstop=4             " 按退格键时可以一次删掉 4 个空格
+set tabstop=2                " 设置Tab键的宽度        [等同的空格个数]
+set shiftwidth=2  " number of spaces to use for autoindenting
+set softtabstop=2             " 按退格键时可以一次删掉 4 个空格
 set smarttab      " insert tabs on the start of a line according to shiftwidth, not tabstop 按退格键时可以一次删掉 4 个空格
 
 set expandtab                " 将Tab自动转化成空格    [需要输入真正的Tab键时，使用 Ctrl+V + Tab]
@@ -447,7 +447,7 @@ let g:tagbar_autofocus = 1
 " ------------ taglist (need ctags)
 "Bundle 'vim-scripts/taglist.vim'
 set tags=tags;/
-let Tlist_Ctags_Cmd="/usr/bin/ctags"
+let Tlist_Ctags_Cmd="ctags"
 nnoremap <silent> <F8> :TlistToggle<CR>
 let Tlist_Auto_Highlight_Tag = 1
 let Tlist_Auto_Open = 0
@@ -526,3 +526,57 @@ let g:solarized_visibility="normal"
 
 "主题 molokai
 "Bundle 'tomasr/molokai'
+"
+
+"========================== config for plugins end ======================================
+
+"==========================================
+" 主题,及一些展示上颜色的修改
+"==========================================
+"开启语法高亮
+syntax enable
+syntax on
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guifont=Monaco:h10
+    set guioptions-=T
+    set guioptions+=e
+    set guioptions-=r
+    set guioptions-=L
+    set guitablabel=%M\ %t
+    set showtabline=1
+    set linespace=2
+    set noimd
+    set t_Co=256
+endif
+
+
+" 修改主题和颜色展示
+colorscheme solarized
+set background=dark
+set t_Co=256
+
+"colorscheme molokai
+"colorscheme desert
+
+"设置标记一列的背景颜色和数字一行颜色一致
+hi! link SignColumn   LineNr
+hi! link ShowMarksHLl DiffAdd
+hi! link ShowMarksHLu DiffChange
+
+"" for error highlight，防止错误整行标红导致看不清
+highlight clear SpellBad
+highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+highlight clear SpellCap
+highlight SpellCap term=underline cterm=underline
+highlight clear SpellRare
+highlight SpellRare term=underline cterm=underline
+highlight clear SpellLocal
+highlight SpellLocal term=underline cterm=underline
+
+" settings for kien/rainbow_parentheses.vim
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
