@@ -399,7 +399,8 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 "################### 插件管理 ###################"
 filetype off " required! turn off
-set rtp+=~/.vim/bundle/vundle/
+"set rtp+=~/.vim/bundle/vundle/
+set rtp+=d:/github/new_vim/bundle/vundle/
 call vundle#rc()
 
 "使用Vundle来管理Vundle
@@ -576,7 +577,7 @@ syntax on
 " Set extra options when running in GUI mode
 if has("gui_running")
   au GUIEnter * simalt ~x   "win下打开自动全屏
-  set guifont=Monaco:h12
+  set guifont=Monaco:h10
   "set guifont=Droid\ Sans\ Mono:h12
   "set guifont=Inconsolata:h14
   "set guifont=YaHei\ Consolas\ Hybrid:h16
