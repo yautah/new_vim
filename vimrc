@@ -259,7 +259,7 @@ set whichwrap+=<,>,h,l
 let mapleader = ','
 let g:mapleader = ','
 
-" Quickly edit/reload the vimrc file
+" Quickly edit/reoad the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
@@ -543,13 +543,44 @@ Bundle 'vim-scripts/matchit.zip'
 "
 
 "################### 补全及快速编辑 ###################"
+Bundle 'ervandew/supertab'
+let g:SuperTabDefaultCompletionType = "<C-P>"
 " 快速插入代码片段
-"Bundle 'vim-scripts/UltiSnips'
-Bundle 'SirVer/ultisnips'
+Bundle 'SirVer/ultisnips.git'
+let g:UltiSnips = {}
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 "定义存放代码片段的文件夹 .vim/snippets下，使用自定义和默认的，将会的到全局，有冲突的会提示
-"let g:UltiSnipsSnippetDirectories=["snippets", "bundle/UltiSnips/UltiSnips"]
+"let g:UltiSnipsSnippetDirectories=[ "~/.vim/bundle/ultisnips/UltiSnips","~/.vim/bundle/vim-snippets/UltiSnips" ]
+"let g:UltiSnipsSnippetDirectories = [ "UltiSnips", "~/.vim/bundle/vim-snippets/UltiSnips" ]
+"let g:UltiSnipsSnippetDirectories = [ "H:\Users\addintel\.vim\bundle\vim-snippets\UltiSnips" ]
+let g:UltiSnipsSnippetDirectories=["snippets","UltiSnips"]
+"
+" 快速插入代码片段
+"Bundle 'Shougo/neocomplete'
+"Bundle 'Shougo/neocomplcache'
+"Bundle 'Shougo/neosnippet'
+"Bundle 'honza/vim-snippets'
+
+" Plugin key-mappings.
+"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)"  : "\<TAB>"
+" For snippet_complete marker.
+"if has('conceal')
+  "set conceallevel=2 concealcursor=i
+"endif
+" Enable snipMate compatibility feature.
+"let g:neosnippet#enable_snipmate_compatibility = 1
+" Tell Neosnippet about the other snippets
+"let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+
+
+
 
 "快速 加减注释
 Bundle 'scrooloose/nerdcommenter'
