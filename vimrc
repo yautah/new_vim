@@ -590,8 +590,16 @@ Bundle 'tpope/vim-surround'
 Bundle 'godlygeek/tabular'
 nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a, :Tabularize /,<CR>
+vmap <Leader>a, :Tabularize /,<CR>
+nmap <Leader>a; :Tabularize /;<CR>
+vmap <Leader>a; :Tabularize /;<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
+
+
+"go lang support
+Bundle 'jnwhiteh/vim-golang'
 "
 " end turn on
 filetype plugin indent on
